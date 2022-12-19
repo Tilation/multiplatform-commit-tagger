@@ -1,0 +1,89 @@
+name: Multiplatform Test
+on: 
+  workflow_dispatch:
+
+jobs:
+  build_ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout                                                       
+        uses: actions/checkout@v3                                            
+                                                                             
+      - name: Setup dotnet                                                   
+        uses: actions/setup-dotnet@v3                                        
+        with:                                                                
+          dotnet-version: '6'    
+          
+      - name: Nuget        
+        uses: nuget/setup-nuget@v1
+
+      - name: Run Example
+        shell: bash          
+        env:
+            _owner: ${{ inputs.owner }}
+            _repo: ${{ inputs.repo }}
+            _token: ${{ inputs.token }}
+            _tag: ${{ inputs.tag }}
+            _refsha: ${{ inputs.refsha }}
+            _tag_message: ${{ inputs.tag_message }}
+            _tag_author: ${{ inputs.tag_author }}
+            _tag_author_email: ${{ inputs.tag_author_email }}
+        run: |
+            dotnet restore
+            dotnet build
+  build_macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout                                                       
+        uses: actions/checkout@v3                                            
+                                                                             
+      - name: Setup dotnet                                                   
+        uses: actions/setup-dotnet@v3                                        
+        with:                                                                
+          dotnet-version: '6'    
+          
+      - name: Nuget        
+        uses: nuget/setup-nuget@v1
+
+      - name: Run Example
+        shell: bash          
+        env:
+            _owner: ${{ inputs.owner }}
+            _repo: ${{ inputs.repo }}
+            _token: ${{ inputs.token }}
+            _tag: ${{ inputs.tag }}
+            _refsha: ${{ inputs.refsha }}
+            _tag_message: ${{ inputs.tag_message }}
+            _tag_author: ${{ inputs.tag_author }}
+            _tag_author_email: ${{ inputs.tag_author_email }}
+        run: |
+            dotnet restore
+            dotnet build
+  build_windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout                                                       
+        uses: actions/checkout@v3                                            
+                                                                             
+      - name: Setup dotnet                                                   
+        uses: actions/setup-dotnet@v3                                        
+        with:                                                                
+          dotnet-version: '6'    
+          
+      - name: Nuget        
+        uses: nuget/setup-nuget@v1
+
+      - name: Run Example
+        shell: bash          
+        env:
+            _owner: ${{ inputs.owner }}
+            _repo: ${{ inputs.repo }}
+            _token: ${{ inputs.token }}
+            _tag: ${{ inputs.tag }}
+            _refsha: ${{ inputs.refsha }}
+            _tag_message: ${{ inputs.tag_message }}
+            _tag_author: ${{ inputs.tag_author }}
+            _tag_author_email: ${{ inputs.tag_author_email }}
+        run: |
+            dotnet restore
+            dotnet build
