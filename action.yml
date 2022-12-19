@@ -3,7 +3,7 @@
 ###############################################################################################################################################################
                                                                                     # The name and description of the action itself, these properties will
                                                                                     # show up in the Action's Card when browsing the Action Marketplace. 
-name: Tagger
+name: Multiplatform Commit Tagger
 description: Tags commits
                                                                                     # Shown in the Action's Card when browsing the Action Marketplace.
 branding:                                                                           # Full list : https://github.com/haya14busa/github-action-brandings
