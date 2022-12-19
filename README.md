@@ -1,5 +1,7 @@
 # Multiplatform Github Action
 
+[![Multiplatform Test](https://github.com/Tilation/multiplatform-commit-tagger/actions/workflows/main.yml/badge.svg)](https://github.com/Tilation/multiplatform-commit-tagger/actions/workflows/main.yml)
+
 Compatible with: `macos`, `ubuntu` and `windows` runners.
 
 Parameter | Required | Description
