@@ -1,7 +1,8 @@
 name: Multiplatform Test
 on: 
   workflow_dispatch:
-
+  push:
+    branches: 'main'
 jobs:
   build_ubuntu:
     runs-on: ubuntu-latest
