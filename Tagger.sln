@@ -7,7 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tagger", "src\Tagger.csproj
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{F0633C32-5019-4DD3-B515-E8C9D06554E9}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
 		action.yml = action.yml
+		LICENSE = LICENSE
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
