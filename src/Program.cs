@@ -1,6 +1,6 @@
 using Octokit;
 
-namespace Example
+namespace Tagger
 {
     partial class Program
     {
@@ -16,6 +16,11 @@ namespace Example
             string _owner = GetEnvironmentVariable("_owner");
             string _repo = GetEnvironmentVariable("_repo");
             string _token = GetEnvironmentVariable("_token");
+            string _tag = GetEnvironmentVariable("_tag");
+            string _refsha = GetEnvironmentVariable("_refsha");
+            string _tag_message = GetEnvironmentVariable("_tag_message");
+            string _tag_author = GetEnvironmentVariable("_tag_author");
+            string _tag_author_email = GetEnvironmentVariable("_tag_author_email");
 
             // Create a github client to interact with repositories
             GitHubClient client = new GitHubClient(new ProductHeaderValue("Example"));
@@ -24,23 +29,19 @@ namespace Example
             // Get a repository
             Repository repo = Task.Run(() => client.Repository.Get(_owner, _repo)).Result;
 
-            // Get repository branches
-            var branches = Task.Run(() => client.Repository.Branch.GetAll(repo.Id)).Result;
-
-            if (branches.Count == 0)
+            var tag = new NewTag
             {
-                Console.WriteLine($"There are no branches on the repository.");
-            }
-            else
-            {
-                Console.WriteLine($"Found {branches.Count} branches:");
-                foreach (var branch in branches) 
-                    Console.WriteLine(branch.Name);
-            }
+                Message = _tag_message,
+                Tag = _tag,
+                Object = _refsha,
+                Type = TaggedType.Commit,
+                Tagger = new Committer(_tag_author, _tag_author_email, DateTime.UtcNow)
+            };
+            var result = Task.Run(() => client.Git.Tag.Create(repo.Id, tag)).Result;
 
-            // Set the output variable "branch_count" to branches.Count
-            // This output variable then can be used from other actions.
-            File.WriteAllText(_outputFile, $"branch_count={branches.Count}");
+            var reference = new NewReference($"refs/tags/{_tag}", _refsha);
+
+            var resultRef = Task.Run(() => client.Git.Reference.Create(repo.Id, reference)).Result;
         }
     }
 }

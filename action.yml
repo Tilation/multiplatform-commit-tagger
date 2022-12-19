@@ -3,8 +3,8 @@
 ###############################################################################################################################################################
                                                                                     # The name and description of the action itself, these properties will
                                                                                     # show up in the Action's Card when browsing the Action Marketplace. 
-name: Example
-description: Example description
+name: Tagger
+description: Tags commits
                                                                                     # Shown in the Action's Card when browsing the Action Marketplace.
 branding:                                                                           # Full list : https://github.com/haya14busa/github-action-brandings
     icon: book
@@ -20,6 +20,23 @@ inputs:                                                                         
     token:
         description: 'A github PAT token that has read access to the repository.'
         required: true
+    tag:
+        description: 'Tag name'
+        required: true
+    refsha:
+        description: 'Commit sha to tagg'
+        required: true
+    tag_author:
+        description: 'The tag author username'
+        required: true
+    tag_author_email:
+        description: 'The tag author email'
+        required: true
+    tag_message:
+        description: 'The tag message'
+        required: false
+        default: ''
+
 
 runs:                                                                               # The configuration to run this action.
     using: 'composite'                                                              # Composite tells github that this is not a javascript action nor a docker action.
@@ -42,8 +59,12 @@ runs:                                                                           
                 _owner: ${{ inputs.owner }}
                 _repo: ${{ inputs.repo }}
                 _token: ${{ inputs.token }}
+                _tag: ${{ inputs.tag }}
+                _refsha: ${{ inputs.refsha }}
+                _tag_message: ${{ inputs.tag_message }}
+                _tag_author: ${{ inputs.tag_author }}
+                _tag_author_email: ${{ inputs.tag_author_email }}
             run: |
-                cd src
                 dotnet restore
                 dotnet build
                 dotnet run
